@@ -1,0 +1,2 @@
+# jktor
+Simple classification library
