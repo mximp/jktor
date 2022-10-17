@@ -4,7 +4,7 @@ Simple classification library
 ### Usage
 Creating classfier from classifier string:
 ```
-Classifier cfy = new Classifier("counterparty:clients.domestic");
+Classifier cfy = new CfSimple("counterparty:clients.domestic");
 
 cfy.type();              // "counterparty"
 cfy.value();             // "clients.domestic"
@@ -14,7 +14,7 @@ cfy.depth();             // 2
 
 Creating child classifier:
 ```
-Classifier child = new Classifier(
+Classifier child = new CfSimple(
     new Classifier("counterparty:clients.domestic"), 
     "Max"
 );
