@@ -29,7 +29,12 @@ public final class CfString implements Classifier {
 
     @Override
     public int depth() {
-        return this.validated().split("\\.").length;
+        final String[] parts = this.validated().split("\\.");
+        if (parts[parts.length - 1].endsWith(":")) {
+            return 0;
+        } else {
+            return parts.length;
+        }
     }
 
     @Override
@@ -67,6 +72,11 @@ public final class CfString implements Classifier {
         return source.hashCode();
     }
 
+    @Override
+    public String toString() {
+        return this.source;
+    }
+
     /**
      * Make sure source string is in correct format.
      * @return Source string
@@ -74,11 +84,14 @@ public final class CfString implements Classifier {
      */
     @SuppressWarnings("checkstyle:LineLength")
     private String validated() {
-        if (!this.source.matches(
-            "^[A-Za-z&&[^.]]*:[A-Za-z&&[^.]]+(?:\\.[A-Za-z&&[^.]]+)*$|^[A-Za-z&&[^.]]*:[A-Za-z&&[^.]]*"
-        )) {
+        final String pattern = "^[A-Za-z&&[^.]]*:[A-Za-z&&[^.]]+(?:\\.[A-Za-z&&[^.]]+)*$|^[A-Za-z&&[^.]]*:[A-Za-z&&[^.]]*";
+        if (!this.source.matches(pattern)) {
             throw new IllegalArgumentException(
-                String.format("Not a valid classifier string: %s", this.source)
+                String.format(
+                    "Provided classifier string `%s` doesn't match format `%s`",
+                    this.source,
+                    pattern
+                )
             );
         }
         return this.source;

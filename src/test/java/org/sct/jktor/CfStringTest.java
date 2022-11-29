@@ -38,9 +38,9 @@ class CfStringTest {
     @ParameterizedTest
     @CsvSource({
         "class:a.b.c, 3",
-        "class:, 1",
+        "class:, 0",
         "class:abc, 1",
-        ":, 1"
+        ":, 0"
     })
     void depthTest(final String source, final String expected) {
         Assertions.assertEquals(
