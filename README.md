@@ -1,12 +1,12 @@
-# jktor
-Simple classification library
+# JKtor - Simple library for creating classifiers
+Classifiers helps to categorize entities. Classifier consists of name and path.
 
 ### Usage
 Creating classfier from classifier string:
 ```
 Classifier cfy = new CfSimple("counterparty:clients.domestic");
 
-cfy.type();              // "counterparty"
+cfy.name();              // "counterparty"
 cfy.value();             // "clients.domestic"
 cfy.parent().toString(); // "counterparty:clients"
 cfy.depth();             // 2
