@@ -1,5 +1,6 @@
 # JKtor - Simple library for creating classifiers
-Classifiers helps to categorize entities. Classifier consists of name and path.
+Classifiers helps to categorize entities. Classifier consists of _name_ and _path_.
+Classifiers' paths comprise the hierarchy of classfiers. 
 
 ### Usage
 Creating classfier from classifier string:
