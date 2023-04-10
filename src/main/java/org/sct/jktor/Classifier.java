@@ -1,7 +1,7 @@
 package org.sct.jktor;
 
 /**
- * Classifier interface.
+ * A classifier.
  *
  * @since 1.0
  * @author Maxim Petrov

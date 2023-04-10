@@ -1,7 +1,7 @@
 package org.sct.jktor;
 
 /**
- * Base implementation of {@link Classifier}.
+ * Simple {@link Classifier} constructed from a string.
  *
  * @since 1.0
  * @author Maxim Petrov
