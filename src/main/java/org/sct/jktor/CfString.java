@@ -84,7 +84,7 @@ public final class CfString implements Classifier {
      */
     @SuppressWarnings("checkstyle:LineLength")
     private String validated() {
-        final String pattern = "^[A-Za-z&&[^.]]*:[A-Za-z&&[^.]]+(?:\\.[A-Za-z&&[^.]]+)*$|^[A-Za-z&&[^.]]*:[A-Za-z&&[^.]]*";
+        final String pattern = "^A-Za-z&&[^.]*:A-Za-z&&[^.]+(?:\\.A-Za-z&&[^.]+)*$|^A-Za-z&&[^.]*:A-Za-z&&[^.]*";
         if (!this.source.matches(pattern)) {
             throw new IllegalArgumentException(
                 String.format(
