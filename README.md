@@ -3,7 +3,7 @@
 Classifiers help to categorize entities. Classifier consists of _name_ and _path_.
 Classifiers' paths comprise the hierarchy of classifiers. 
 
-Creating classifier from classifier string:
+Classifier is defined by a string:
 ```java
 Classifier cfr = new CfSimple("counterparty:clients.domestic");
 cfr.name();              // "counterparty"
