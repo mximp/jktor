@@ -1,19 +1,54 @@
 package org.sct.jktor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.StreamSupport;
 
+/**
+ * Simple group of classifiers.
+ */
 public class CfsSimple implements Classifiers {
 
-    private Iterable<Classifier> source;
+    /**
+     * Classifiers.
+     */
+    private final Iterable<Classifier> source;
 
-    public CfsSimple(final CfSimple cfSimple) {
-        this.source = List.of(cfSimple);
+    /**
+     * Ctor.
+     * @param classifiers Sources.
+     */
+    public CfsSimple(final Classifier... classifiers) {
+        this.source = List.of(classifiers);
+    }
+
+    public CfsSimple(final String... classifiers) {
+        this(Arrays.stream(classifiers).map(CfSimple::new).toArray(Classifier[]::new));
     }
 
     @Override
     public long size() {
+        return StreamSupport.stream(this.all().spliterator(), false).count();
+    }
+
+    @Override
+    public Iterable<String> names() {
+        return StreamSupport.stream(this.all().spliterator(), false)
+            .map(Classifier::name).distinct().toList();
+    }
+
+    @Override
+    public Iterator<Classifier> iterator() {
+        return this.all().iterator();
+    }
+
+    /**
+     * Get all distinct classifiers in the group.
+     * @return Classifiers.
+     */
+    private Iterable<Classifier> all() {
         final List<Classifier> classifiers = new ArrayList<>();
         source.forEach(classifiers::add);
         return classifiers.stream().flatMap(
@@ -26,21 +61,6 @@ public class CfsSimple implements Classifiers {
                 }
                 return list.stream();
             }
-        ).distinct().count();
-    }
-
-    @Override
-    public Iterable<Classifier> list() {
-        return null;
-    }
-
-    @Override
-    public Classifiers rootedAt(final Classifier cfr) {
-        return null;
-    }
-
-    @Override
-    public Iterator<Classifier> iterator() {
-        return null;
+        ).distinct().toList();
     }
 }

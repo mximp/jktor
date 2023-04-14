@@ -16,12 +16,5 @@ public interface Classifiers extends Iterable<Classifier> {
      * Top-level classifiers of the hierarchy.
      * @return Classifiers
      */
-    Iterable<Classifier> list();
-
-    /**
-     * Hierarchy rooted at given classifier
-     * @param cfr Desired root classifier
-     * @return A hierarchy
-     */
-    Classifiers rootedAt(Classifier cfr);
+    Iterable<String> names();
 }

@@ -51,6 +51,19 @@ class CfSimpleTest {
 
     @ParameterizedTest
     @CsvSource({
+        "A:a.b.c, A",
+        ":d.e.f, ",
+        ":,  ",
+    })
+    void hasCorrectName(final String source, final String expected) {
+        Assertions.assertEquals(
+            expected == null ? "" : expected,
+            new CfSimple(source).name()
+        );
+    }
+
+    @ParameterizedTest
+    @CsvSource({
         ":, :",
         "class:, :",
         "class:a.b.c, class:a.b",
