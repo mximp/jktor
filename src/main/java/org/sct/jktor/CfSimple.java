@@ -6,7 +6,7 @@ package org.sct.jktor;
  * @since 1.0
  * @author Maxim Petrov
  */
-public final class CfString implements Classifier {
+public final class CfSimple implements Classifier {
 
     /**
      * Source classifier string.
@@ -17,7 +17,7 @@ public final class CfString implements Classifier {
      * Ctor.
      * @param src Classifier string in a form 'name:part1[.part2][...]'
      */
-    public CfString(final String src) {
+    public CfSimple(final String src) {
         this.source = src;
     }
 
@@ -44,11 +44,11 @@ public final class CfString implements Classifier {
         if (valid.equals(":")) {
             result = this;
         } else if (valid.split(":").length == 1) {
-            result = new CfString(":");
+            result = new CfSimple(":");
         } else if (!valid.contains(".")) {
-            result = new CfString(valid.substring(0, valid.indexOf(":") + 1));
+            result = new CfSimple(valid.substring(0, valid.indexOf(":") + 1));
         } else {
-            result = new CfString(valid.substring(0, valid.lastIndexOf(".")));
+            result = new CfSimple(valid.substring(0, valid.lastIndexOf(".")));
         }
         return result;
     }
@@ -62,9 +62,9 @@ public final class CfString implements Classifier {
             return false;
         }
 
-        final CfString cfString = (CfString) o;
+        final CfSimple cfSimple = (CfSimple) o;
 
-        return source.equals(cfString.source);
+        return source.equals(cfSimple.source);
     }
 
     @Override
@@ -84,7 +84,7 @@ public final class CfString implements Classifier {
      */
     @SuppressWarnings("checkstyle:LineLength")
     private String validated() {
-        final String pattern = "^[A-Za-z&&[^.]]*:[A-Za-z&&[^.]]+(?:\\.[A-Za-z&&[^.]]+)*$|^[A-Za-z&&[^.]]*:[A-Za-z&&[^.]]*";
+        final String pattern = "^[A-Za-z0-9&&[^.]]*:[A-Za-z0-9&&[^.]]+(?:\\.[A-Za-z0-9&&[^.]]+)*$|^[A-Za-z0-9&&[^.]]*:[A-Za-z0-9&&[^.]]*";
         if (!this.source.matches(pattern)) {
             throw new IllegalArgumentException(
                 String.format(

@@ -5,7 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class CfStringTest {
+class CfSimpleTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
@@ -17,7 +17,7 @@ class CfStringTest {
         ":"
     })
     void validSource(final String source) {
-        Classifier cfr = new CfString(source);
+        Classifier cfr = new CfSimple(source);
         Assertions.assertDoesNotThrow(cfr::name);
     }
 
@@ -31,7 +31,7 @@ class CfStringTest {
         "sab.ssd:sdfs.dfs"
     })
     void invalidSource(final String source) {
-        Classifier cfr = new CfString(source);
+        Classifier cfr = new CfSimple(source);
         Assertions.assertThrows(IllegalArgumentException.class, cfr::name);
     }
 
@@ -45,7 +45,7 @@ class CfStringTest {
     void depthTest(final String source, final String expected) {
         Assertions.assertEquals(
             Integer.valueOf(expected),
-            new CfString(source).depth()
+            new CfSimple(source).depth()
         );
     }
 
@@ -59,8 +59,8 @@ class CfStringTest {
     })
     void parentTest(final String source, final String expected) {
         Assertions.assertEquals(
-            new CfString(expected),
-            new CfString(source).parent()
+            new CfSimple(expected),
+            new CfSimple(source).parent()
         );
     }
 }
