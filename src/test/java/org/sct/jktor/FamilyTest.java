@@ -8,18 +8,18 @@ import org.junit.jupiter.api.Test;
 class FamilyTest {
 
     @Test
-    void definesRootedCorrectly() {
+    void definesFamilyCorrectly() {
         Assertions.assertEquals(
             new Group(
-                "A:a.b.c",
-                "A:a.b.d"
+                "A:a.b.c.f",
+                "A:a.b.d.e"
             ).all().collect(Collectors.toSet()),
             new Family(
                 new Group(
-                    "A:a.b.c",
+                    "A:a.b.c.f",
                     "B:e.f",
                     "A:h",
-                    "A:a.b.d"
+                    "A:a.b.d.e"
                 ),
                 new StringClassifier("A:a.b")
             ).all().collect(Collectors.toSet())

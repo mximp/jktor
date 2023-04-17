@@ -27,5 +27,28 @@ Single classifier defines a family:
 ```java
 Classifiers group = new Group(
     "A:a.b.c"
-).all();                  // "A:", "A:a", "A:a.b", "A:a.b.c"
+).all();                  // "A:", 
+                          // |- "A:a", 
+                          //    |- "A:a.b",
+                          //       |- "A:a.b.c"
+```
+
+Family can be extracted from a group by providing its member:
+```java
+new Family(
+    new Group(
+        "A:a.b.c.f",
+        "B:e.f",
+        "A:h",
+        "A:a.b.d.e"
+    ),
+    new StringClassifier("A:a.b")
+).all().collect(Collectors.toSet()) // "A:"
+                                    // |- "A:a"
+                                    //    |- "A:a.b"
+                                    //       |- "A:a.b.c"
+                                    //       |  |- "A:a.b.c.f"
+                                    //       |- "A:a.b.d"
+                                    //          |- "A:a.b.d.e"
+
 ```

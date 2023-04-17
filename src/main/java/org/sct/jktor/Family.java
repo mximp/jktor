@@ -1,13 +1,13 @@
 package org.sct.jktor;
 
-import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * A family defined by a member.
- * Contains only classifiers from single family.
+ * Extracts family by a member.
+ * A family defined by a member are all classifiers which have
+ * the member as immediate or interim parent plus all its parents.
  */
 public final class Family implements Classifiers {
 
@@ -17,7 +17,7 @@ public final class Family implements Classifiers {
         this.rooted = new Group(
             () -> origin.all()
                 .filter(
-                    cfr -> cfr.parent().equals(member)
+                    cfr -> new Group(cfr.parent()).all().anyMatch(member::equals)
                 ).collect(Collectors.toList())
         );
     }
@@ -35,10 +35,5 @@ public final class Family implements Classifiers {
     @Override
     public Stream<Classifier> all() {
        return this.rooted.all();
-    }
-
-    @Override
-    public Iterator<Classifier> iterator() {
-        return this.rooted.iterator();
     }
 }

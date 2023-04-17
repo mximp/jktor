@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 /**
  * A bunch of classifiers.
  */
-public interface Classifiers extends Iterable<Classifier> {
+public interface Classifiers {
 
     /**
      * Number of classifiers in the hierarchy.

@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class ClassifiersFileSourceTest {
+class FileClassifiersTest {
 
     @Test
     void readsClassifiersFromFile() throws URISyntaxException {
@@ -17,10 +17,8 @@ class ClassifiersFileSourceTest {
                 new StringClassifier("S:m.l"),
                 new StringClassifier("P:p1.p2.p3.p4.p5")
             ).all().collect(Collectors.toUnmodifiableSet()),
-            new Group(
-                new ClassifiersFileSource(
-                    Paths.get(this.getClass().getClassLoader().getResource("sample.txt").toURI())
-                )
+            new FileClassifiers(
+                Paths.get(this.getClass().getClassLoader().getResource("sample.txt").toURI())
             ).all().collect(Collectors.toUnmodifiableSet())
         );
     }
@@ -29,11 +27,17 @@ class ClassifiersFileSourceTest {
     void failsOnIncorrectFileFormat() {
         Assertions.assertThrows(
             IllegalArgumentException.class,
-            () -> new Group(
-                new ClassifiersFileSource(
-                    Paths.get(this.getClass().getClassLoader().getResource("sample-incorrect.txt").toURI())
-                )
+            () -> new FileClassifiers(
+                Paths.get(this.getClass().getClassLoader().getResource("sample-incorrect.txt").toURI())
             ).size()
+        );
+    }
+
+    @Test
+    void failsOnMissingFile() {
+        Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> new FileClassifiers(Paths.get("/a/b/c.txt")).names()
         );
     }
 }

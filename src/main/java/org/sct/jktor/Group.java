@@ -1,14 +1,13 @@
 package org.sct.jktor;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * Simple group of classifiers.
@@ -54,16 +53,9 @@ public final class Group implements Classifiers {
 
     @Override
     public Stream<Classifier> all() {
-        final List<Classifier> classifiers = new ArrayList<>();
-        source.get().forEach(classifiers::add);
-        return classifiers.stream().flatMap(
-            cfr -> this.parents(cfr).stream()
-        ).distinct();
-    }
-
-    @Override
-    public Iterator<Classifier> iterator() {
-        return this.all().iterator();
+        return StreamSupport.stream(source.get().spliterator(), false)
+            .flatMap(cfr -> this.parents(cfr).stream())
+            .distinct();
     }
 
     /**
