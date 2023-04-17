@@ -1,5 +1,8 @@
 package org.sct.jktor;
 
+import java.util.Set;
+import java.util.stream.Stream;
+
 /**
  * A hierarchy of classifiers.
  */
@@ -13,8 +16,14 @@ public interface Classifiers extends Iterable<Classifier> {
     long size();
 
     /**
-     * Top-level classifiers of the hierarchy.
-     * @return Classifiers
+     * Family names within the group
+     * @return Strings representing the names
      */
-    Iterable<String> names();
+    Set<String> names();
+
+    /**
+     * All distinct classifiers as stream.
+     * @return Classifier stream.
+     */
+    Stream<Classifier> all();
 }

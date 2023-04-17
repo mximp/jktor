@@ -8,7 +8,22 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-class CfsSimpleTest {
+class CfsGroupTest {
+
+    @Test
+    void listsAllCorrectly() {
+        Assertions.assertEquals(
+            Set.of(
+                new CfSimple("A:"),
+                new CfSimple("A:a"),
+                new CfSimple("A:a.b"),
+                new CfSimple("A:a.b.c")
+            ),
+            new CfsGroup(
+                new CfSimple("A:a.b.c")
+            ).all().collect(Collectors.toSet())
+        );
+    }
 
     @ParameterizedTest
     @CsvSource({
@@ -19,7 +34,7 @@ class CfsSimpleTest {
     void hasValidSizeForSingleClassifier(String classifier, String size) {
         Assertions.assertEquals(
             Long.valueOf(size),
-            new CfsSimple(
+            new CfsGroup(
                 classifier
             ).size()
         );
@@ -29,7 +44,7 @@ class CfsSimpleTest {
     void hasValidSizeForSeveral() {
         Assertions.assertEquals(
             Long.valueOf(7),
-            new CfsSimple(
+            new CfsGroup(
                 "A:a1.a2.a3", // 4
                 "A:a1.a2",    // ignored
                 "B:b1",       // 2
@@ -48,7 +63,7 @@ class CfsSimpleTest {
                 "A"
             ),
             StreamSupport.stream(
-                new CfsSimple(
+                new CfsGroup(
                     "A:a1.a2.a3", // 4
                     "A:a1.a2",    // ignored
                     "B:b1",       // 2
