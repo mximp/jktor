@@ -84,7 +84,7 @@ public final class StringClassifier implements Classifier {
      */
     @SuppressWarnings("checkstyle:LineLength")
     private String validated() {
-        final String pattern = "^[A-Za-z0-9&&[^.]]*:[A-Za-z0-9&&[^.]]+(?:\\.[A-Za-z0-9&&[^.]]+)*$|^[A-Za-z0-9&&[^.]]*:[A-Za-z0-9&&[^.]]*";
+        final String pattern = "^[A-Za-z0-9 &&[^.]]*:[A-Za-z0-9 &&[^.]]+(?:\\.[A-Za-z0-9 &&[^.]]+)*$|^[A-Za-z0-9 &&[^.]]*:[A-Za-z0-9 &&[^.]]*";
         if (!this.source.matches(pattern)) {
             throw new IllegalArgumentException(
                 String.format(

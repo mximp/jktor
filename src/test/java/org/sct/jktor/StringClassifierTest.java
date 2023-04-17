@@ -14,6 +14,7 @@ class StringClassifierTest {
         "class:abc.def.ghi",
         ":a.b.c",
         "class:",
+        "PPP:two words",
         ":"
     })
     void validSource(final String source) {
