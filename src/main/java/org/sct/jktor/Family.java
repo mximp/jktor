@@ -9,12 +9,12 @@ import java.util.stream.Stream;
  * A family defined by a member.
  * Contains only classifiers from single family.
  */
-public final class CfsFamily implements Classifiers {
+public final class Family implements Classifiers {
 
     private final Classifiers rooted;
 
-    public CfsFamily(final Classifiers origin, final Classifier member) {
-        this.rooted = new CfsGroup(
+    public Family(final Classifiers origin, final Classifier member) {
+        this.rooted = new Group(
             () -> origin.all()
                 .filter(
                     cfr -> cfr.parent().equals(member)

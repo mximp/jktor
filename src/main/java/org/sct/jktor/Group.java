@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  * Simple group of classifiers.
  * May contain different families.
  */
-public final class CfsGroup implements Classifiers {
+public final class Group implements Classifiers {
 
     /**
      * Classifiers.
@@ -25,18 +25,18 @@ public final class CfsGroup implements Classifiers {
      * Ctor.
      * @param classifiers Sources.
      */
-    public CfsGroup(final Classifier... classifiers) {
+    public Group(final Classifier... classifiers) {
         this(() -> List.of(classifiers));
     }
 
-    public CfsGroup(final String... classifiers) {
+    public Group(final String... classifiers) {
         this(() -> Arrays.stream(classifiers)
-                .map(CfSimple::new)
+                .map(StringClassifier::new)
                 .collect(Collectors.toList())
         );
     }
 
-    public CfsGroup(final Supplier<Iterable<Classifier>> source) {
+    public Group(final Supplier<Iterable<Classifier>> source) {
         this.source = source;
     }
 
@@ -75,7 +75,7 @@ public final class CfsGroup implements Classifiers {
     private Set<Classifier> parents(final Classifier cfr) {
         Classifier parent = cfr;
         Set<Classifier> result = new HashSet<>();
-        while (!parent.equals(new CfSimple(":"))) {
+        while (!parent.equals(new StringClassifier(":"))) {
             result.add(parent);
             parent = parent.parent();
         }

@@ -5,23 +5,23 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class CfsFamilyTest {
+class FamilyTest {
 
     @Test
     void definesRootedCorrectly() {
         Assertions.assertEquals(
-            new CfsGroup(
+            new Group(
                 "A:a.b.c",
                 "A:a.b.d"
             ).all().collect(Collectors.toSet()),
-            new CfsFamily(
-                new CfsGroup(
+            new Family(
+                new Group(
                     "A:a.b.c",
                     "B:e.f",
                     "A:h",
                     "A:a.b.d"
                 ),
-                new CfSimple("A:a.b")
+                new StringClassifier("A:a.b")
             ).all().collect(Collectors.toSet())
         );
     }
@@ -32,14 +32,14 @@ class CfsFamilyTest {
             Set.of(
                 "A"
             ),
-            new CfsFamily(
-                new CfsGroup(
+            new Family(
+                new Group(
                     "A:a.b.c",
                     "B:e.f",
                     "A:h",
                     "A:a.b.d"
                 ),
-                new CfSimple("A:a.b")
+                new StringClassifier("A:a.b")
             ).names()
         );
     }
