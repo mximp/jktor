@@ -7,7 +7,6 @@ Classifier is defined by a string:
 ```java
 Classifier cfr = new CfSimple("counterparty:clients.domestic");
 cfr.name();              // "counterparty"
-cfr.value();             // "clients.domestic"
 cfr.parent().toString(); // "counterparty:clients"
 cfr.depth();             // 2
 ```
