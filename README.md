@@ -1,25 +1,31 @@
-# JKtor - Simple library for creating classifiers
+# JKtor - Simple library for manipulating classifiers
+
 Classifiers help to categorize entities. Classifier consists of _name_ and _path_.
 Classifiers' paths comprise the hierarchy of classifiers. 
 
-Creating classifier from classifier string:
+Classifier is defined by a string:
 ```java
 Classifier cfr = new CfSimple("counterparty:clients.domestic");
 cfr.name();              // "counterparty"
-cfr.value();             // "clients.domestic"
 cfr.parent().toString(); // "counterparty:clients"
 cfr.depth();             // 2
 ```
 
-Working with hierarchy:
+Working with group:
 ```java
-Classifiers cfrs = new Classifiers(
-    new CfSimple("cgry:c1.c2"),
-    new CfSimple("cgry:c1.c3"),
-    new CfSimple("cgry:c2.c4"),
-    new CfSimple("prj:p1.p2.p3"),
+Classifiers cfrs = new CfsGroup(
+    "cgry:c1.c2",
+    "cgry:c1.c3",
+    "cgry:c2.c4",
+    "prj:p1.p2.p3",
 );
-cfrs.list()                    // "cgry:", "prj:"
-cfrs.rootedAt("cgry:").list()  // "cgry:c1", "cgry:c2"
-cfrs.rootedAt("prj:p1").list() // "prj:p1.p2"
+cfrs.names()              // "cgry", "prj"
+cfrs.size                 // 9
+```
+
+Single classifier defines a family:
+```java
+Classifiers group = new CfsGroup(
+    "A:a.b.c"
+).all();                  // "A:", "A:a", "A:a.b", "A:a.b.c"
 ```
