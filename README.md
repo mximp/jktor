@@ -11,9 +11,9 @@ cfr.parent().toString(); // "counterparty:clients"
 cfr.depth();             // 2
 ```
 
-Working with hierarchy:
+Working with group:
 ```java
-Classifiers cfrs = new Classifiers(
+Classifiers cfrs = new CfsGroup(
     "cgry:c1.c2",
     "cgry:c1.c3",
     "cgry:c2.c4",
@@ -21,4 +21,11 @@ Classifiers cfrs = new Classifiers(
 );
 cfrs.names()              // "cgry", "prj"
 cfrs.size                 // 9
+```
+
+Single classifier defines a family:
+```java
+Classifiers group = new CfsGroup(
+    "A:a.b.c"
+).all();                  // "A:", "A:a", "A:a.b", "A:a.b.c"
 ```
