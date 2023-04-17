@@ -6,33 +6,38 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
  * Simple group of classifiers.
+ * May contain different families.
  */
-public class CfsGroup implements Classifiers {
+public final class CfsGroup implements Classifiers {
 
     /**
      * Classifiers.
      */
-    private final Iterable<Classifier> source;
+    private final Supplier<Iterable<Classifier>> source;
 
     /**
      * Ctor.
      * @param classifiers Sources.
      */
     public CfsGroup(final Classifier... classifiers) {
-        this.source = List.of(classifiers);
+        this(() -> List.of(classifiers));
     }
 
     public CfsGroup(final String... classifiers) {
-        this(
-            Arrays.stream(classifiers)
+        this(() -> Arrays.stream(classifiers)
                 .map(CfSimple::new)
-                .toArray(Classifier[]::new)
+                .collect(Collectors.toList())
         );
+    }
+
+    public CfsGroup(final Supplier<Iterable<Classifier>> source) {
+        this.source = source;
     }
 
     @Override
@@ -50,7 +55,7 @@ public class CfsGroup implements Classifiers {
     @Override
     public Stream<Classifier> all() {
         final List<Classifier> classifiers = new ArrayList<>();
-        source.forEach(classifiers::add);
+        source.get().forEach(classifiers::add);
         return classifiers.stream().flatMap(
             cfr -> this.parents(cfr).stream()
         ).distinct();

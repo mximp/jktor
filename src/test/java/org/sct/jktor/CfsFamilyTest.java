@@ -30,20 +30,17 @@ class CfsFamilyTest {
     void returnsCorrectNames() {
         Assertions.assertEquals(
             Set.of(
-                "A",
-                "B"
+                "A"
             ),
-            Set.of(
-                new CfsFamily(
-                    new CfsGroup(
-                        "A:a.b.c",
-                        "B:e.f",
-                        "A:h",
-                        "A:a.b.d"
-                    ),
-                    new CfSimple("A:a.b")
-                ).names()
-            )
+            new CfsFamily(
+                new CfsGroup(
+                    "A:a.b.c",
+                    "B:e.f",
+                    "A:h",
+                    "A:a.b.d"
+                ),
+                new CfSimple("A:a.b")
+            ).names()
         );
     }
 }

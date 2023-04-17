@@ -5,39 +5,40 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CfsFamily implements Classifiers {
+/**
+ * A family defined by a member.
+ * Contains only classifiers from single family.
+ */
+public final class CfsFamily implements Classifiers {
 
-    private final Classifiers origin;
-    private final Classifier root;
+    private final Classifiers rooted;
 
-    public CfsFamily(final Classifiers origin, final Classifier root) {
-        this.origin = origin;
-        this.root = root;
+    public CfsFamily(final Classifiers origin, final Classifier member) {
+        this.rooted = new CfsGroup(
+            () -> origin.all()
+                .filter(
+                    cfr -> cfr.parent().equals(member)
+                ).collect(Collectors.toList())
+        );
     }
 
     @Override
     public long size() {
-        return this.all().count();
+        return this.rooted.size();
     }
 
     @Override
     public Set<String> names() {
-        return this.all()
-            .map(Classifier::name).collect(Collectors.toUnmodifiableSet());
+        return this.rooted.names();
     }
 
     @Override
     public Stream<Classifier> all() {
-        return new CfsGroup(
-            this.origin.all()
-                .filter(
-                    cfr -> cfr.parent().equals(this.root)
-                ).toArray(Classifier[]::new)
-        ).all();
+       return this.rooted.all();
     }
 
     @Override
     public Iterator<Classifier> iterator() {
-        return this.all().iterator();
+        return this.rooted.iterator();
     }
 }

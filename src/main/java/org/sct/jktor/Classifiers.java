@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * A hierarchy of classifiers.
+ * A bunch of classifiers.
  */
 public interface Classifiers extends Iterable<Classifier> {
 
