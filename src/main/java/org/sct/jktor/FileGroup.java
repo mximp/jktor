@@ -10,20 +10,24 @@ import java.util.stream.Stream;
 /**
  * Classifiers within the file.
  */
-public class FileClassifiers implements Classifiers {
+public class FileGroup implements Group {
 
     /**
      * Path to a file.
      */
-    private final Classifiers source;
+    private final Group source;
 
-    public FileClassifiers(final Path source) {
-        this.source = new Group(
+    /**
+     * Ctor.
+     * @param source path to a file with classifiers.
+     */
+    public FileGroup(final Path source) {
+        this.source = new SimpleGroup(
             () -> {
                 try {
                     return Files.readAllLines(source).stream()
                         .filter(s -> !s.isBlank())
-                        .map(StringClassifier::new)
+                        .map(CfString::new)
                         .collect(Collectors.toList());
                 } catch (IOException e) {
                     throw new IllegalArgumentException(

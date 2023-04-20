@@ -5,7 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class StringClassifierTest {
+class CfStringTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
@@ -18,7 +18,7 @@ class StringClassifierTest {
         ":"
     })
     void validSource(final String source) {
-        Classifier cfr = new StringClassifier(source);
+        Classifier cfr = new CfString(source);
         Assertions.assertDoesNotThrow(cfr::name);
     }
 
@@ -32,7 +32,7 @@ class StringClassifierTest {
         "sab.ssd:sdfs.dfs"
     })
     void invalidSource(final String source) {
-        Classifier cfr = new StringClassifier(source);
+        Classifier cfr = new CfString(source);
         Assertions.assertThrows(IllegalArgumentException.class, cfr::name);
     }
 
@@ -46,7 +46,7 @@ class StringClassifierTest {
     void depthTest(final String source, final String expected) {
         Assertions.assertEquals(
             Integer.valueOf(expected),
-            new StringClassifier(source).depth()
+            new CfString(source).depth()
         );
     }
 
@@ -59,7 +59,7 @@ class StringClassifierTest {
     void hasCorrectName(final String source, final String expected) {
         Assertions.assertEquals(
             expected == null ? "" : expected,
-            new StringClassifier(source).name()
+            new CfString(source).name()
         );
     }
 
@@ -73,8 +73,8 @@ class StringClassifierTest {
     })
     void parentTest(final String source, final String expected) {
         Assertions.assertEquals(
-            new StringClassifier(expected),
-            new StringClassifier(source).parent()
+            new CfString(expected),
+            new CfString(source).parent()
         );
     }
 }

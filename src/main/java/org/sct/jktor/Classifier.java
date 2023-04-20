@@ -9,13 +9,13 @@ package org.sct.jktor;
 public interface Classifier {
 
     /**
-     * Name.
+     * Name of classifier.
      * @return A string with name
      */
     String name();
 
     /**
-     * Depth of classifier path.
+     * Depth of classifier.
      * @return Depth
      */
     int depth();

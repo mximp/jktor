@@ -6,7 +6,7 @@ package org.sct.jktor;
  * @since 1.0
  * @author Maxim Petrov
  */
-public final class StringClassifier implements Classifier {
+public final class CfString implements Classifier {
 
     /**
      * Source classifier string.
@@ -17,7 +17,7 @@ public final class StringClassifier implements Classifier {
      * Ctor.
      * @param src Classifier string in a form 'name:part1[.part2][...]'
      */
-    public StringClassifier(final String src) {
+    public CfString(final String src) {
         this.source = src;
     }
 
@@ -44,11 +44,11 @@ public final class StringClassifier implements Classifier {
         if (valid.equals(":")) {
             result = this;
         } else if (valid.split(":").length == 1) {
-            result = new StringClassifier(":");
+            result = new CfString(":");
         } else if (!valid.contains(".")) {
-            result = new StringClassifier(valid.substring(0, valid.indexOf(":") + 1));
+            result = new CfString(valid.substring(0, valid.indexOf(":") + 1));
         } else {
-            result = new StringClassifier(valid.substring(0, valid.lastIndexOf(".")));
+            result = new CfString(valid.substring(0, valid.lastIndexOf(".")));
         }
         return result;
     }
@@ -62,9 +62,9 @@ public final class StringClassifier implements Classifier {
             return false;
         }
 
-        final StringClassifier stringClassifier = (StringClassifier) o;
+        final CfString classifier = (CfString) o;
 
-        return source.equals(stringClassifier.source);
+        return source.equals(classifier.source);
     }
 
     @Override

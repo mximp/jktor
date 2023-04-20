@@ -9,15 +9,23 @@ import java.util.stream.Stream;
  * A family defined by a member are all classifiers which have
  * the member as immediate or interim parent plus all its parents.
  */
-public final class Family implements Classifiers {
+public final class Family implements Group {
 
-    private final Classifiers rooted;
+    /**
+     * Group defined by the member.
+     */
+    private final Group rooted;
 
-    public Family(final Classifiers origin, final Classifier member) {
-        this.rooted = new Group(
+    /**
+     * Ctor.
+     * @param origin A group
+     * @param member Member
+     */
+    public Family(final Group origin, final Classifier member) {
+        this.rooted = new SimpleGroup(
             () -> origin.all()
                 .filter(
-                    cfr -> new Group(cfr.parent()).all().anyMatch(member::equals)
+                    cfr -> new SimpleGroup(cfr.parent()).all().anyMatch(member::equals)
                 ).collect(Collectors.toList())
         );
     }

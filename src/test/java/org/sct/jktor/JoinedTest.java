@@ -10,18 +10,18 @@ class JoinedTest {
     void joinsTwoGroups() {
         this.assertClassifiersEqual(
             Stream.of(
-                new StringClassifier("A:"),
-                new StringClassifier("A:a"),
-                new StringClassifier("A:a.b"),
-                new StringClassifier("A:a.b.c"),
-                new StringClassifier("B:"),
-                new StringClassifier("B:d"),
-                new StringClassifier("B:d.e"),
-                new StringClassifier("B:d.e.f")
+                new CfString("A:"),
+                new CfString("A:a"),
+                new CfString("A:a.b"),
+                new CfString("A:a.b.c"),
+                new CfString("B:"),
+                new CfString("B:d"),
+                new CfString("B:d.e"),
+                new CfString("B:d.e.f")
             ),
             new Joined(
-                new Group("A:a.b.c"),
-                new Group("B:d.e.f")
+                new SimpleGroup("A:a.b.c"),
+                new SimpleGroup("B:d.e.f")
             ).all()
         );
     }
@@ -30,16 +30,16 @@ class JoinedTest {
     void joinsGroupAndClassifier() {
         this.assertClassifiersEqual(
             Stream.of(
-                new StringClassifier("A:"),
-                new StringClassifier("A:a"),
-                new StringClassifier("A:a.b"),
-                new StringClassifier("A:a.b.c"),
-                new StringClassifier("B:"),
-                new StringClassifier("B:d")
+                new CfString("A:"),
+                new CfString("A:a"),
+                new CfString("A:a.b"),
+                new CfString("A:a.b.c"),
+                new CfString("B:"),
+                new CfString("B:d")
             ),
             new Joined(
-                new Group("A:a.b.c"),
-                new StringClassifier("B:d")
+                new SimpleGroup("A:a.b.c"),
+                new CfString("B:d")
             ).all()
         );
     }
@@ -48,15 +48,15 @@ class JoinedTest {
     void ignoresDuplicates() {
         this.assertClassifiersEqual(
             Stream.of(
-                new StringClassifier("A:"),
-                new StringClassifier("A:a"),
-                new StringClassifier("A:a.b"),
-                new StringClassifier("A:a.b.c"),
-                new StringClassifier("A:a.b.c.d")
+                new CfString("A:"),
+                new CfString("A:a"),
+                new CfString("A:a.b"),
+                new CfString("A:a.b.c"),
+                new CfString("A:a.b.c.d")
             ),
             new Joined(
-                new Group("A:a.b.c"),
-                new Group("A:a.b.c.d")
+                new SimpleGroup("A:a.b.c"),
+                new SimpleGroup("A:a.b.c.d")
             ).all()
         );
     }

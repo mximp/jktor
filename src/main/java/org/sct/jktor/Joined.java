@@ -6,12 +6,20 @@ import java.util.stream.Stream;
 /**
  * Joining two groups.
  */
-public class Joined implements Classifiers {
+public class Joined implements Group {
 
-    private final Classifiers joined;
+    /**
+     * Join result.
+     */
+    private final Group joined;
 
-    public Joined(Classifiers left, Classifiers right) {
-        this.joined = new Group(
+    /**
+     * Ctor.
+     * @param left Left
+     * @param right Right
+     */
+    public Joined(Group left, Group right) {
+        this.joined = new SimpleGroup(
             () -> Stream.concat(
                 left.all(),
                 right.all()
@@ -19,11 +27,16 @@ public class Joined implements Classifiers {
         );
     }
 
-    public Joined(Classifiers group, Classifier classifier) {
-        this.joined = new Group(
+    /**
+     * Ctor.
+     * @param group Group
+     * @param classifier Classifier being added
+     */
+    public Joined(Group group, Classifier classifier) {
+        this.joined = new SimpleGroup(
             () -> Stream.concat(
                 group.all(),
-                new Group(classifier).all()
+                new SimpleGroup(classifier).all()
             ).toList()
         );
     }

@@ -10,18 +10,18 @@ class FamilyTest {
     @Test
     void definesFamilyCorrectly() {
         Assertions.assertEquals(
-            new Group(
+            new SimpleGroup(
                 "A:a.b.c.f",
                 "A:a.b.d.e"
             ).all().collect(Collectors.toSet()),
             new Family(
-                new Group(
+                new SimpleGroup(
                     "A:a.b.c.f",
                     "B:e.f",
                     "A:h",
                     "A:a.b.d.e"
                 ),
-                new StringClassifier("A:a.b")
+                new CfString("A:a.b")
             ).all().collect(Collectors.toSet())
         );
     }
@@ -33,13 +33,13 @@ class FamilyTest {
                 "A"
             ),
             new Family(
-                new Group(
+                new SimpleGroup(
                     "A:a.b.c",
                     "B:e.f",
                     "A:h",
                     "A:a.b.d"
                 ),
-                new StringClassifier("A:a.b")
+                new CfString("A:a.b")
             ).names()
         );
     }
