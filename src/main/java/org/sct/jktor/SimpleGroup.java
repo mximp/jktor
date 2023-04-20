@@ -1,6 +1,7 @@
 package org.sct.jktor;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -63,6 +64,7 @@ public final class SimpleGroup implements Group {
     public Stream<Classifier> all() {
         return StreamSupport.stream(source.get().spliterator(), false)
             .flatMap(cfr -> this.parents(cfr).stream())
+            .sorted(Comparator.comparing(Classifier::toString))
             .distinct();
     }
 

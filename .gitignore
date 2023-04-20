@@ -20,7 +20,7 @@
 *.rar
 
 # Maven
-target/
+**/target/
 
 # IntelliJ
 .idea/
