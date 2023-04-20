@@ -11,6 +11,7 @@
 
   <modules>
     <module>jktor-cli</module>
+    <module>jktor-core</module>
   </modules>
 
   <properties>

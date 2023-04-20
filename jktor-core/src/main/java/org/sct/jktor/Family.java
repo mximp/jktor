@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 /**
  * Extracts family by a member.
- * A family defined by a member are all classifiers which have
+ * A family defined by a member is all classifiers which have
  * the member as immediate or interim parent plus all its parents.
  */
 public final class Family implements Group {
