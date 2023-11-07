@@ -68,6 +68,11 @@ public final class SimpleGroup implements Group {
             .distinct();
     }
 
+    @Override
+    public boolean contains(final Classifier classifier) {
+        return this.all().anyMatch(classifier::equals);
+    }
+
     /**
      * All parents for given classifier.
      *

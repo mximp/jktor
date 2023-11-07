@@ -44,4 +44,9 @@ public final class Family implements Group {
     public Stream<Classifier> all() {
        return this.rooted.all();
     }
+
+    @Override
+    public boolean contains(final Classifier classifier) {
+        return false;
+    }
 }

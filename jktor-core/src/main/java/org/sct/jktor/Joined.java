@@ -55,4 +55,9 @@ public class Joined implements Group {
     public Stream<Classifier> all() {
         return this.joined.all();
     }
+
+    @Override
+    public boolean contains(final Classifier classifier) {
+        return false;
+    }
 }

@@ -14,6 +14,11 @@ public final class CfString implements Classifier {
     private final String source;
 
     /**
+     * Has the source been validated?
+     */
+    private boolean validated = false;
+
+    /**
      * Ctor.
      * @param src Classifier string in a form 'name:part1[.part2][...]'
      */
@@ -23,13 +28,13 @@ public final class CfString implements Classifier {
 
     @Override
     public String name() {
-        final String src = this.validated();
+        final String src = this.valid();
         return src.substring(0, src.indexOf(":"));
     }
 
     @Override
     public int depth() {
-        final String[] parts = this.validated().split("\\.");
+        final String[] parts = this.valid().split("\\.");
         if (parts[parts.length - 1].endsWith(":")) {
             return 0;
         } else {
@@ -39,7 +44,7 @@ public final class CfString implements Classifier {
 
     @Override
     public Classifier parent() {
-        final String valid = this.validated();
+        final String valid = this.valid();
         final Classifier result;
         if (valid.equals(":")) {
             result = this;
@@ -83,7 +88,10 @@ public final class CfString implements Classifier {
      * @throws IllegalArgumentException in case validation is failed.
      */
     @SuppressWarnings("checkstyle:LineLength")
-    private String validated() {
+    private String valid() {
+        if (this.validated) {
+            return this.source;
+        }
         final String pattern = "^[A-Za-z0-9 &&[^.]]*:[A-Za-z0-9 &&[^.]]+(?:\\.[A-Za-z0-9 &&[^.]]+)*$|^[A-Za-z0-9 &&[^.]]*:[A-Za-z0-9 &&[^.]]*";
         if (!this.source.matches(pattern)) {
             throw new IllegalArgumentException(
@@ -94,6 +102,7 @@ public final class CfString implements Classifier {
                 )
             );
         }
+        this.validated = true;
         return this.source;
     }
 }

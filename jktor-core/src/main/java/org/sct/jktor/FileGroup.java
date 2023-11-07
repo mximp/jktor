@@ -56,4 +56,9 @@ public class FileGroup implements Group {
     public Stream<Classifier> all() {
         return this.source.all();
     }
+
+    @Override
+    public boolean contains(final Classifier classifier) {
+        return this.source.contains(classifier);
+    }
 }

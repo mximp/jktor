@@ -26,4 +26,11 @@ public interface Group {
      * @return Classifier stream.
      */
     Stream<Classifier> all();
+
+    /**
+     * If this group contains given classifiers.
+     * @param classifier Element to check.
+     * @return True if present, false otherwise.
+     */
+    boolean contains(Classifier classifier);
 }

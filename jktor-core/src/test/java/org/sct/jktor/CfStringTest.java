@@ -7,6 +7,16 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class CfStringTest {
 
+    public static void main(String[] args) {
+        CfString classifier = new CfString("name:a.b.c.d.e");
+        long start = System.currentTimeMillis();
+        for(int i = 0; i < 1_000_000; i++) {
+            classifier.name();
+            classifier.parent();
+        }
+        System.out.println(System.currentTimeMillis() - start);
+    }
+
     @ParameterizedTest
     @ValueSource(strings = {
         "class:ABC.def",
